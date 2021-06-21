@@ -1,7 +1,11 @@
 {% if is_granted("ROLE_USER") %}
     {% for task in tasks %}
         {{ task.title }}
-        {{ task.description }}
     {% endfor %}
+
+Dodawanie nowego taska:
+    {{ form_start(task_form) }}
+        {{ form(task_form) }}
+    {{ form_end(task_form) }}
 {% endif %}
 
