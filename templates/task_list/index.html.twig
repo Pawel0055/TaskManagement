@@ -1,11 +1,25 @@
-{% if is_granted("ROLE_USER") %}
-    {% for task in tasks %}
-        {{ task.title }}
-    {% endfor %}
+{% extends 'base.html.twig' %}
+{% block title %}Task Management{% endblock %}
+{% block body %}
+    {% if is_granted("ROLE_ADMIN") %}
+        <div class="container">
+            <div class="row table-head">
+                <div class="col-md-1 col-lg-1">ID</div>
+                <div class="col-md-9 col-lg-9">Nazwa tasku</div>
+                <div class="col-md-2 col-lg-2">Edycja</div>
+            </div>
+            <div class="row table-head">
+                {% for task in tasks %}
+                    <div class="col-md-1 col-lg-1">{{ task.id }}</div>
+                    <div class="col-md-9 col-lg-9"><a href= "{{path('task_details', {id: task.id}) }}"> {{ task.title }} </a></div>
+                    <div class="col-md-2 col-lg-2"><a href= "{{path('task_edit', {id: task.id}) }}">Edytuj</a></div>
+                {% endfor %}
 
-Dodawanie nowego taska:
-    {{ form_start(task_form) }}
-        {{ form(task_form) }}
-    {{ form_end(task_form) }}
-{% endif %}
-
+                Dodawanie nowego taska:
+                {{ form_start(task_form) }}
+                    {{ form(task_form) }}
+                {{ form_end(task_form) }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

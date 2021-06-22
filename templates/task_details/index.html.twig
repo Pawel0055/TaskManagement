@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}Task Management{% endblock %}
+{% block body %}
+    {% if is_granted("ROLE_ADMIN") %}
+        <div class="container">
+            <div class="row table-head">
+                <div class="col-md-1 col-lg-1">ID</div>
+                <div class="col-md-2 col-lg-2">Nazwa tasku</div>
+                <div class="col-md-3 col-lg-3">Opis</div>
+                <div class="col-md-3 col-lg-3">Deadline</div>
+                <div class="col-md-1 col-lg-1">Status</div>
+                <div class="col-md-2 col-lg-2">Podtaski</div>
+            </div>
+            <div class="row table-head">
+                {% for task in taskDetails %}
+                    <div class="col-md-1 col-lg-1">{{ task.id }}</div>
+                    <div class="col-md-2 col-lg-2">{{ task.title }}</div>
+                    <div class="col-md-3 col-lg-3">{{ task.description }}</div>
+                    <div class="col-md-3 col-lg-3">{{ task.deadline }}</div>
+                    <div class="col-md-1 col-lg-1">{{ task.status }}</div>
+                {% endfor %}
+                <div class="col-md-2 col-lg-2">
+                    {% for subtasks in subtasks %}
+                        {{subtasks.description}}
+                    {% endfor %}
+                </div>
+            Dodawanie podtaska:
+            {{ form_start(subtask_form) }}
+                {{ form(subtask_form) }}
+            {{ form_end(subtask_form) }}
+        </div>
+    {% endif %}
+{% endblock %}
