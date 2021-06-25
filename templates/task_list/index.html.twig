@@ -5,21 +5,38 @@
         <div class="container">
             <div class="row table-head">
                 <div class="col-md-1 col-lg-1">ID</div>
-                <div class="col-md-9 col-lg-9">Nazwa tasku</div>
+                <div class="col-md-6 col-lg-6">Nazwa tasku</div>
                 <div class="col-md-2 col-lg-2">Edycja</div>
+                <div class="col-md-3 col-lg-3">Zmien status</div>
             </div>
-            <div class="row table-head">
-                {% for task in tasks %}
-                    <div class="col-md-1 col-lg-1">{{ task.id }}</div>
-                    <div class="col-md-9 col-lg-9"><a href= "{{path('task_details', {id: task.id}) }}"> {{ task.title }} </a></div>
-                    <div class="col-md-2 col-lg-2"><a href= "{{path('task_edit', {id: task.id}) }}">Edytuj</a></div>
-                {% endfor %}
-
-                Dodawanie nowego taska:
-                {{ form_start(task_form) }}
-                    {{ form(task_form) }}
-                {{ form_end(task_form) }}
-            </div>
+        <div class="row table-head">
+            {% for task in tasks %}
+                <div class="row hover click">
+                <div id="id" class="col-md-1 col-lg-1">{{ task.id }}</div>
+                <div class="col-md-6 col-lg-6"><a href= "{{path('task_details', {id: task.id}) }}">{{ task.title}}</a></div>
+                <div class="col-md-2 col-lg-2"><a href= "{{path('task_edit', {id: task.id}) }}">Edytuj</a></div>
+                <div class="col-md-3 col-lg-3 sortable">
+                    {% if task.status == 2 %}
+                        <div id="item_2" class="ui-state-default"> oczekujacy </div>
+                        <div id="item_1" class="ui-state-default">wykonany</div>
+                        <div id="item_0" class="ui-state-default">odrzucony</div>
+                    {% elseif task.status == 1 %}
+                        <div id="item_1" class="ui-state-default"> wykonany </div>
+                        <div id="item_2" class="ui-state-default">oczekujacy</div>
+                        <div id="item_0" class="ui-state-default">odrzucony</div>
+                    {% else %}
+                        <div id="item_0" class="ui-state-default"> odrzucony</div>
+                        <div id="item_2" class="ui-state-default">oczekujacy</div>
+                        <div id="item_1" class="ui-state-default">wykonany</div>
+                    {% endif %}
+                </div>
+                </div>
+            {% endfor %}
+        </div>
+        Dodawanie nowego taska:
+            {{ form_start(task_form) }}
+                {{ form(task_form) }}
+            {{ form_end(task_form) }}
         </div>
     {% endif %}
 {% endblock %}

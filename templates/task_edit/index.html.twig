@@ -1,20 +1,18 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Hello TaskEditController!{% endblock %}
-
+{% block title %}Task Management{% endblock %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/TaskMa/src/Controller/TaskEditController.php'|file_link(0) }}">src/Controller/TaskEditController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/TaskMa/templates/task_edit/index.html.twig'|file_link(0) }}">templates/task_edit/index.html.twig</a></code></li>
-    </ul>
-</div>
+    {% if is_granted("ROLE_ADMIN") %}
+        <div class="container">
+                Edycja istniejacego taska
+                {{ form_start(edit_task_form) }}
+                    {{ form(edit_task_form) }}
+                {{ form_end(edit_task_form) }}
+            <div class="row table-head"> Lista poddatskow, ktore mozna edytowac:
+                {% for subtask in sub_task_list %}
+                    <div>{{subtask.description}}</div>
+                {% endfor %}
+            </div>
+            <div><a href= "{{path('task_list') }}"> Wroc do listy taskow </div>
+        </div>
+    {% endif %}
 {% endblock %}
