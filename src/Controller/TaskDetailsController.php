@@ -28,7 +28,6 @@ class TaskDetailsController extends AbstractController
         $form = $this->createForm(SubTaskType::class, $subTask);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //$p = $form->getData();
             $entityManager->persist($subTask);
             $entityManager->flush();
         }

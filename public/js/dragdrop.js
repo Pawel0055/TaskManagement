@@ -10,7 +10,7 @@ $(document).ready(function () {
             console.log(postData);
             $.ajax({
                 type: "POST",
-                url: 'ajax',
+                url: 'changeStatus',
                 data: {
                     data: postData,
                     id: id

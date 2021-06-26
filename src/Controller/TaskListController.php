@@ -35,7 +35,7 @@ class TaskListController extends AbstractController
     }
 
     /**
-    * @Route("/task/ajax", name="ajax")
+    * @Route("/task/changeStatus", name="changeStatus")
     */
     public function changeStatus(Request $request, EntityManagerInterface $entityManager)
     {
@@ -54,5 +54,5 @@ class TaskListController extends AbstractController
         $entityManager->persist($task);
         $entityManager->flush();
         return new Response('Saved new status');
-     }
+    }
 }

@@ -7,12 +7,14 @@
                 {{ form_start(edit_task_form) }}
                     {{ form(edit_task_form) }}
                 {{ form_end(edit_task_form) }}
-            <div class="row table-head"> Lista poddatskow, ktore mozna edytowac:
+            Lista poddatskow:
+            <div class="row table-head">
                 {% for subtask in sub_task_list %}
-                    <div>{{subtask.description}}</div>
+                    <div class="col-md-9 col-lg-9">{{subtask.description}}</div>
+                    <div class="col-md-3 col-lg-3"><a href= "{{path('sub_task_delete', {id: subtask.id}) }}">Usun SubTask</a></div>
                 {% endfor %}
             </div>
-            <div><a href= "{{path('task_list') }}"> Wroc do listy taskow </div>
+            <div class="col-md-2 col-lg-2"><a href= "{{path('task_list') }}">Wroc do listy taskow</a></div>
         </div>
     {% endif %}
 {% endblock %}
